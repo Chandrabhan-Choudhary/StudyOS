@@ -1,9 +1,11 @@
 import streamlit as st
 
+# --- CONSTANTS ---
 SUBJECT_COL = "Subject/Skill"
 RATING_COL = "Excellence Rating"
 STATUS_COL = "Status"
 
+# --- CONFIGURATION ---
 def setup_page():
     st.set_page_config(page_title="StudyOS v13.0", page_icon="🔥", layout="wide")
 
@@ -44,12 +46,22 @@ def get_css():
         /* Center Checkboxes */
         div[data-testid="stCheckbox"] { display: flex; justify-content: center; }
 
-        /* --- HEATMAP CSS ENGINE --- */
+        /* --- HEATMAP CSS ENGINE (UPDATED) --- */
         .graph-container {
-            display: flex; flex-direction: column; padding: 15px;
-            background-color: #0d1117; border: 1px solid #30363d;
-            border-radius: 6px; margin-bottom: 20px; overflow-x: auto;
+            display: flex; flex-direction: column; 
+            padding: 10px; /* Reduced padding */
+            background-color: #0d1117; 
+            border: 1px solid #30363d;
+            border-radius: 6px; 
+            margin-bottom: 20px; 
+            overflow-x: auto;
+            
+            /* FIX: Shrink box to fit content and center it */
+            max-width: fit-content; 
+            margin-left: auto;
+            margin-right: auto;
         }
+
         .heatmap-center-wrapper { width: max-content; margin: 0 auto; }
         
         /* YEARLY MAP STYLES */
