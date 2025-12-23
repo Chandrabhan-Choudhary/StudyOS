@@ -23,17 +23,15 @@ def get_css():
             border-right: 1px solid #30363d; 
         }
         
-        /* HIDE SIDEBAR SCROLLBARS (The Fix) */
+        /* HIDE SIDEBAR SCROLLBARS */
         section[data-testid="stSidebar"] > div {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* IE/Edge */
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+            overflow-x: hidden;
         }
-        section[data-testid="stSidebar"] > div::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
-        }
+        section[data-testid="stSidebar"] > div::-webkit-scrollbar { display: none; }
         
-        /* Metric (Top Right) */
+        /* Metric */
         div[data-testid="stMetricValue"] {
             color: #39d353 !important;
             text-shadow: 0 0 10px rgba(57, 211, 83, 0.4);
@@ -47,14 +45,12 @@ def get_css():
         div[data-testid="stCheckbox"] label span { border-color: #39d353 !important; }
         div[data-testid="stCheckbox"] label span[data-checked="true"] { background-color: #39d353 !important; }
         
-        /* Toggle Switch Color Override */
+        /* Toggle Switch */
         div[data-testid="stToggle"] label div[data-checked="true"] { background-color: #39d353 !important; }
 
         /* Inputs */
         div[data-testid="stSelectbox"] > div > div { background-color: #0d1117; color: #e6edf3; border: 1px solid #30363d; }
         div[data-testid="stTextInput"] > div > div { background-color: #0d1117; color: #e6edf3; border: 1px solid #30363d; }
-        
-        /* Center Checkboxes */
         div[data-testid="stCheckbox"] { display: flex; justify-content: center; }
 
         /* --- HEATMAP CSS ENGINE --- */
@@ -75,7 +71,12 @@ def get_css():
             
             /* Hide Scrollbar */
             scrollbar-width: none;  
-            -ms-overflow-style: none;  
+            -ms-overflow-style: none;
+            
+            /* --- CURSOR FIX (New) --- */
+            cursor: default;     /* Forces arrow cursor */
+            user-select: none;   /* Prevents highlighting text */
+            -webkit-user-select: none;
         }
         .graph-container::-webkit-scrollbar { display: none; }
 
@@ -83,10 +84,7 @@ def get_css():
         
         /* YEARLY MAP STYLES */
         .months-row { 
-            position: relative; 
-            height: 15px; 
-            margin-left: 30px; 
-            margin-bottom: 5px; 
+            position: relative; height: 15px; margin-left: 30px; margin-bottom: 5px; 
             width: calc(100% - 30px); 
         }
         .month-label { position: absolute; font-size: 10px; color: #848d97; }
@@ -111,6 +109,7 @@ def get_css():
         .day-cell {
             width: 10px; height: 10px; border-radius: 2px;
             background-color: #161b22; transition: all 0.2s;
+            cursor: pointer; /* Pointer on hover for interactivity feel */
         }
         .day-cell:hover { transform: scale(1.4); border: 1px solid #fff; z-index:10; }
         .month-cell {
@@ -118,6 +117,7 @@ def get_css():
             display: flex; align-items: center; justify-content: center;
             font-size: 8px; color: #fff; font-weight: bold; background-color: #161b22;
             transition: all 0.2s; border: 1px solid #1f242c;
+            cursor: default;
         }
         .month-cell:hover { transform: scale(1.2); border: 1px solid #fff; z-index: 5; }
     </style>
