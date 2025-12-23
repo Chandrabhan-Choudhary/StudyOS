@@ -1,0 +1,17 @@
+# --- Personal Data (CRITICAL) ---
+studyProgress*.xlsx
+*.csv
+*.json
+
+# --- System & Local Launchers ---
+*.bat
+*.ico
+__pycache__/
+*.pyc
+.DS_Store
+
+# --- Virtual Environments ---
+env/
+venv/
+.vscode/
+.idea/
