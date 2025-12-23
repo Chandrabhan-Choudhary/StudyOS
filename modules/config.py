@@ -1,11 +1,9 @@
 import streamlit as st
 
-# --- CONSTANTS ---
 SUBJECT_COL = "Subject/Skill"
 RATING_COL = "Excellence Rating"
 STATUS_COL = "Status"
 
-# --- CONFIGURATION ---
 def setup_page():
     st.set_page_config(page_title="StudyOS v13.0", page_icon="🔥", layout="wide")
 
@@ -19,8 +17,21 @@ def get_css():
         h1, h2, h3 { color: #e6edf3 !important; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
         p, label, span, div { color: #848d97; }
         
-        /* Sidebar */
-        section[data-testid="stSidebar"] { background-color: #010409; border-right: 1px solid #30363d; }
+        /* --- SIDEBAR STYLING --- */
+        section[data-testid="stSidebar"] { 
+            background-color: #010409; 
+            border-right: 1px solid #30363d; 
+        }
+        
+        /* HIDE SIDEBAR SCROLLBARS (The Fix) */
+        section[data-testid="stSidebar"] > div {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE/Edge */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        section[data-testid="stSidebar"] > div::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
         
         /* Metric (Top Right) */
         div[data-testid="stMetricValue"] {
@@ -46,26 +57,38 @@ def get_css():
         /* Center Checkboxes */
         div[data-testid="stCheckbox"] { display: flex; justify-content: center; }
 
-        /* --- HEATMAP CSS ENGINE (UPDATED) --- */
+        /* --- HEATMAP CSS ENGINE --- */
         .graph-container {
             display: flex; flex-direction: column; 
-            padding: 10px; /* Reduced padding */
+            padding: 15px;
             background-color: #0d1117; 
             border: 1px solid #30363d;
             border-radius: 6px; 
             margin-bottom: 20px; 
-            overflow-x: auto;
             
-            /* FIX: Shrink box to fit content and center it */
+            /* SCROLLING FIXES */
+            overflow-x: auto;       
+            overflow-y: hidden;     
             max-width: fit-content; 
-            margin-left: auto;
+            margin-left: auto;      
             margin-right: auto;
+            
+            /* Hide Scrollbar */
+            scrollbar-width: none;  
+            -ms-overflow-style: none;  
         }
+        .graph-container::-webkit-scrollbar { display: none; }
 
         .heatmap-center-wrapper { width: max-content; margin: 0 auto; }
         
         /* YEARLY MAP STYLES */
-        .months-row { position: relative; height: 15px; margin-left: 30px; margin-bottom: 5px; width: 100%; }
+        .months-row { 
+            position: relative; 
+            height: 15px; 
+            margin-left: 30px; 
+            margin-bottom: 5px; 
+            width: calc(100% - 30px); 
+        }
         .month-label { position: absolute; font-size: 10px; color: #848d97; }
         
         .graph-body { display: flex; }
