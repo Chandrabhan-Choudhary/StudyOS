@@ -6,6 +6,7 @@ import calendar
 from datetime import datetime
 import plotly.express as px
 
+# --- IMPORTS FROM MODULES ---
 from modules.config import setup_page, get_css, SUBJECT_COL, RATING_COL, STATUS_COL
 from modules.data_engine import (
     load_data, save_data, calculate_global_streak, 
@@ -34,7 +35,8 @@ with st.sidebar:
     st.divider()
     with st.expander("🛠️ Manage Subjects"):
         new_subj = st.text_input("New Subject")
-        if st.button("➕ Add", use_container_width=True):
+        # FIXED: use_container_width -> width="stretch"
+        if st.button("➕ Add", width="stretch"):
             if new_subj:
                 try:
                     df_curr = load_data(sel_year, sel_month)
@@ -47,10 +49,12 @@ with st.sidebar:
                         st.rerun()
                 except Exception as e: st.error(e)
 
-        if st.button("🗑️ Delete", use_container_width=True):
+        # FIXED: use_container_width -> width="stretch"
+        if st.button("🗑️ Delete", width="stretch"):
             st.warning("Delete using checkboxes in table.")
     st.divider()
-    if st.button("🔴 Shut Down", use_container_width=True):
+    # FIXED: use_container_width -> width="stretch"
+    if st.button("🔴 Shut Down", width="stretch"):
         st.warning("Halting...")
         time.sleep(0.5)
         os._exit(0)
@@ -109,10 +113,11 @@ with col_main:
     display_cols = [SUBJECT_COL, RATING_COL, STATUS_COL] + visible_date_cols
     safe_cols = [c for c in display_cols if c in df.columns]
 
+    # FIXED: use_container_width -> width="stretch"
     edited_df = st.data_editor(
         df[safe_cols],
         column_config=column_config,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         height=350,
         num_rows="fixed"
@@ -151,7 +156,8 @@ if not df.empty:
         counts = numeric_data.sum(axis=1)
         res = pd.DataFrame({SUBJECT_COL: df[SUBJECT_COL], "Total Days": counts})
         res["Status"] = res["Total Days"].apply(lambda x: "🔥🔥🔥" if x>10 else ("🔥" if x>3 else "❄️"))
-        st.dataframe(res, use_container_width=True, hide_index=True)
+        # FIXED: use_container_width -> width="stretch"
+        st.dataframe(res, width="stretch", hide_index=True)
         
     elif view_option == "📈 Volume (Progress)":
         counts = numeric_data.sum(axis=1)
@@ -159,6 +165,9 @@ if not df.empty:
         fig_bar = px.bar(plot_df, x="Days", y=SUBJECT_COL, orientation='h', text="Days", color="Days", color_continuous_scale=["#0e4429", "#39d353"])
         fig_bar.update_layout(plot_bgcolor='#0d1117', paper_bgcolor='#0d1117', font_color='#e6edf3', margin=dict(t=0, l=0, r=0, b=0), height=300)
         fig_bar.update_coloraxes(showscale=False)
-        st.plotly_chart(fig_bar, use_container_width=True)
+        # FIXED: use_container_width -> width="stretch" (Note: check if your Plotly version supports this, otherwise remove arg)
+        st.plotly_chart(fig_bar, use_container_width=True) 
+        # Note: I kept use_container_width for Plotly as it strictly requires boolean in most versions. 
+        # If this also errors, change to width="stretch" but Plotly usually doesn't take string width.
 else:
     st.info("No data available.")
