@@ -4,8 +4,7 @@ studyProgress*.xlsx
 *.json
 
 # --- System & Local Launchers ---
-*.bat
-*.ico
+.ico
 __pycache__/
 *.pyc
 .DS_Store
