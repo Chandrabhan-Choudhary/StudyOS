@@ -114,7 +114,7 @@ StudyOS/
 ├── requirements.txt        # Dependency List
 └── studyProgress2025.xlsx  # (Auto-Generated - Not in Git)
 
-🔮 Future Roadmap
+## 🔮 Future Roadmap
 To transition StudyOS from a personal tool to a general-purpose student planner:
 
 📊 Predictive Analytics: Use linear regression to predict "Day of Completion" for specific subjects based on current velocity.
