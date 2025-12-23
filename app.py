@@ -164,8 +164,9 @@ if not df.empty:
             font_color='#e6edf3', 
             margin=dict(t=0, l=0, r=0, b=0), 
             height=300,
-            xaxis=dict(showgrid=False),
-            yaxis=dict(showgrid=False)
+            xaxis=dict(showgrid=False, fixedrange=True),
+            yaxis=dict(showgrid=False, fixedrange=True),
+            dragmode=False 
         )
         fig_bar.update_coloraxes(showscale=False)
         
