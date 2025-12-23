@@ -134,7 +134,7 @@ with col_right:
 
 # 5. DROPDOWN ANALYTICS
 st.divider()
-view_option = st.selectbox("📊 Additional Analytics:", ["🌍 Yearly Consistency", "🔥 Streaks", "📈 Volume (Progress)"], index=0)
+view_option = st.selectbox("📊 Additional Analytics:", ["🌍 Yearly Consistency", "🔥 Streaks", "📈 Total Study Volume"], index=0)
 st.write("") 
 
 if not df.empty:
@@ -153,12 +153,22 @@ if not df.empty:
         res["Status"] = res["Total Days"].apply(lambda x: "🔥🔥🔥" if x>10 else ("🔥" if x>3 else "❄️"))
         st.dataframe(res, width="stretch", hide_index=True)
         
-    elif view_option == "📈 Volume (Progress)":
+    elif view_option == "📈 Total Study Volume":
         counts = numeric_data.sum(axis=1)
         plot_df = pd.DataFrame({SUBJECT_COL: df[SUBJECT_COL], "Days": counts}).sort_values("Days", ascending=True)
         fig_bar = px.bar(plot_df, x="Days", y=SUBJECT_COL, orientation='h', text="Days", color="Days", color_continuous_scale=["#0e4429", "#39d353"])
-        fig_bar.update_layout(plot_bgcolor='#0d1117', paper_bgcolor='#0d1117', font_color='#e6edf3', margin=dict(t=0, l=0, r=0, b=0), height=300)
+        
+        fig_bar.update_layout(
+            plot_bgcolor='#0d1117', 
+            paper_bgcolor='#0d1117', 
+            font_color='#e6edf3', 
+            margin=dict(t=0, l=0, r=0, b=0), 
+            height=300,
+            xaxis=dict(showgrid=False),
+            yaxis=dict(showgrid=False)
+        )
         fig_bar.update_coloraxes(showscale=False)
-        st.plotly_chart(fig_bar, use_container_width=True)
+        
+        st.plotly_chart(fig_bar, use_container_width=True, config={'displayModeBar': False})
 else:
     st.info("No data available.")
