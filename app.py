@@ -6,7 +6,6 @@ import calendar
 from datetime import datetime
 import plotly.express as px
 
-# --- IMPORTS FROM MODULES ---
 from modules.config import setup_page, get_css, SUBJECT_COL, RATING_COL, STATUS_COL
 from modules.data_engine import (
     load_data, save_data, calculate_global_streak, 
@@ -35,7 +34,6 @@ with st.sidebar:
     st.divider()
     with st.expander("🛠️ Manage Subjects"):
         new_subj = st.text_input("New Subject")
-        # FIXED: use_container_width -> width="stretch"
         if st.button("➕ Add", width="stretch"):
             if new_subj:
                 try:
@@ -49,11 +47,9 @@ with st.sidebar:
                         st.rerun()
                 except Exception as e: st.error(e)
 
-        # FIXED: use_container_width -> width="stretch"
         if st.button("🗑️ Delete", width="stretch"):
             st.warning("Delete using checkboxes in table.")
     st.divider()
-    # FIXED: use_container_width -> width="stretch"
     if st.button("🔴 Shut Down", width="stretch"):
         st.warning("Halting...")
         time.sleep(0.5)
@@ -113,7 +109,6 @@ with col_main:
     display_cols = [SUBJECT_COL, RATING_COL, STATUS_COL] + visible_date_cols
     safe_cols = [c for c in display_cols if c in df.columns]
 
-    # FIXED: use_container_width -> width="stretch"
     edited_df = st.data_editor(
         df[safe_cols],
         column_config=column_config,
@@ -139,13 +134,13 @@ with col_right:
 
 # 5. DROPDOWN ANALYTICS
 st.divider()
-view_option = st.selectbox("📊 Additional Analytics:", ["🌍 Yearly Heatmap", "🔥 Streaks", "📈 Volume (Progress)"], index=0)
+view_option = st.selectbox("📊 Additional Analytics:", ["🌍 Yearly Consistency", "🔥 Streaks", "📈 Volume (Progress)"], index=0)
 st.write("") 
 
 if not df.empty:
     numeric_data = df[valid_date_cols].replace({'True': True, 'False': False}).fillna(False).astype(int)
 
-    if view_option == "🌍 Yearly Heatmap":
+    if view_option == "🌍 Yearly Consistency":
         yearly_series = get_yearly_activity(sel_year)
         if not yearly_series.empty:
             html_year = render_yearly_heatmap(yearly_series)
@@ -156,7 +151,6 @@ if not df.empty:
         counts = numeric_data.sum(axis=1)
         res = pd.DataFrame({SUBJECT_COL: df[SUBJECT_COL], "Total Days": counts})
         res["Status"] = res["Total Days"].apply(lambda x: "🔥🔥🔥" if x>10 else ("🔥" if x>3 else "❄️"))
-        # FIXED: use_container_width -> width="stretch"
         st.dataframe(res, width="stretch", hide_index=True)
         
     elif view_option == "📈 Volume (Progress)":
@@ -165,9 +159,6 @@ if not df.empty:
         fig_bar = px.bar(plot_df, x="Days", y=SUBJECT_COL, orientation='h', text="Days", color="Days", color_continuous_scale=["#0e4429", "#39d353"])
         fig_bar.update_layout(plot_bgcolor='#0d1117', paper_bgcolor='#0d1117', font_color='#e6edf3', margin=dict(t=0, l=0, r=0, b=0), height=300)
         fig_bar.update_coloraxes(showscale=False)
-        # FIXED: use_container_width -> width="stretch" (Note: check if your Plotly version supports this, otherwise remove arg)
-        st.plotly_chart(fig_bar, use_container_width=True) 
-        # Note: I kept use_container_width for Plotly as it strictly requires boolean in most versions. 
-        # If this also errors, change to width="stretch" but Plotly usually doesn't take string width.
+        st.plotly_chart(fig_bar, use_container_width=True)
 else:
     st.info("No data available.")
