@@ -113,6 +113,7 @@ StudyOS/
 │   └── config.py           # CSS Styling & Constants
 ├── requirements.txt        # Dependency List
 └── studyProgress2025.xlsx  # (Auto-Generated - Not in Git)
+```
 
 ## 🔮 Future Roadmap
 To transition StudyOS from a personal tool to a general-purpose student planner:
