@@ -114,13 +114,13 @@ StudyOS/
 ├── requirements.txt        # Dependency List
 └── studyProgress2025.xlsx  # (Auto-Generated - Not in Git)
 
-## 🔮 Future Roadmap
-
+🔮 Future Roadmap
 To transition StudyOS from a personal tool to a general-purpose student planner:
 
-* **📊 Predictive Analytics:** Use linear regression to predict "Day of Completion" for specific subjects based on current velocity.
-* **☁️ Cloud Sync:** Add a toggle to sync specifically to Google Sheets for cross-device access without file conflicts.
-* **🏆 Gamification:** Add "Badges" (e.g., "7-Day Streak", "Weekend Warrior") to the sidebar to boost motivation.
+📊 Predictive Analytics: Use linear regression to predict "Day of Completion" for specific subjects based on current velocity.
 
----
-*Built by Chandrabhan Choudhary*
+☁️ Cloud Sync (Optional): Add a toggle to sync specifically to Google Sheets for cross-device access without file conflicts.
+
+🏆 Gamification: Add "Badges" (e.g., "7-Day Streak", "Weekend Warrior") to the sidebar to boost motivation.
+
+Built by Chandrabhan Choudhary
